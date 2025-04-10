@@ -1,0 +1,60 @@
+.container {
+  h2 {
+    margin-bottom: 25px;
+    color: #333;
+  }
+}
+
+.search-container {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  
+  .search-input {
+    flex: 1;
+    padding: 8px 12px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 14px;
+    
+    &:focus {
+      outline: none;
+      border-color: #80bdff;
+      box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    }
+  }
+}
+
+.add-product-btn {
+  margin-bottom: 20px;
+  text-align: right;
+}
+
+.table-responsive {
+  margin-bottom: 30px;
+  
+  .table {
+    th {
+      background-color: #f8f9fa;
+    }
+    
+    .btn-group {
+      display: flex;
+      gap: 5px;
+    }
+  }
+}
+
+.no-products {
+  text-align: center;
+  padding: 30px;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+  
+  p {
+    font-size: 16px;
+    color: #6c757d;
+  }
+}

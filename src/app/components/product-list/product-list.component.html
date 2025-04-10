@@ -1,0 +1,56 @@
+<div class="container">
+  <h2>Liste des Produits</h2>
+  
+  <div class="search-container">
+    <input 
+      type="text" 
+      [value]="searchTerm()"
+      (input)="updateSearchTerm($event)" 
+      placeholder="Rechercher un produit..." 
+      class="search-input"
+    >
+    <button (click)="searchProducts()" class="btn btn-primary">Rechercher</button>
+    <button (click)="resetSearch()" class="btn btn-secondary">Réinitialiser</button>
+  </div>
+  
+  <div class="add-product-btn">
+    <a routerLink="/products/new" class="btn btn-success">Ajouter un Produit</a>
+  </div>
+  
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nom</th>
+          <th>Description</th>
+          <th>Prix</th>
+          <th>Stock</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (product of products(); track product.id) {
+          <tr>
+            <td>{{ product.id }}</td>
+            <td>{{ product.name }}</td>
+            <td>{{ product.description }}</td>
+            <td>{{ product.price | currency:'EUR' }}</td>
+            <td>{{ product.stock }}</td>
+            <td>
+              <div class="btn-group">
+                <a [routerLink]="['/products/edit', product.id]" class="btn btn-primary btn-sm">Modifier</a>
+                <button (click)="deleteProduct(product.id!)" class="btn btn-danger btn-sm">Supprimer</button>
+              </div>
+            </td>
+          </tr>
+        }
+        @empty {
+          <tr>
+            <td colspan="6" class="text-center">Aucun produit trouvé.</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>

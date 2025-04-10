@@ -1,0 +1,98 @@
+<div class="container">
+  <h2>{{ isEditMode() ? 'Modifier' : 'Ajouter' }} un Produit</h2>
+  
+  <form [formGroup]="productForm" (ngSubmit)="onSubmit()" class="product-form">
+    <div class="form-group">
+      <label for="name">Nom</label>
+      <input 
+        type="text" 
+        id="name" 
+        formControlName="name" 
+        class="form-control" 
+        [ngClass]="{ 'is-invalid': submitted() && f['name'].errors }"
+      >
+      @if (submitted() && f['name'].errors) {
+        <div class="invalid-feedback">
+          @if (f['name'].errors['required']) {
+            <div>Le nom est requis</div>
+          }
+        </div>
+      }
+    </div>
+    
+    <div class="form-group">
+      <label for="description">Description</label>
+      <textarea 
+        id="description" 
+        formControlName="description" 
+        class="form-control" 
+        rows="3"
+        [ngClass]="{ 'is-invalid': submitted() && f['description'].errors }"
+      ></textarea>
+      @if (submitted() && f['description'].errors) {
+        <div class="invalid-feedback">
+          @if (f['description'].errors['required']) {
+            <div>La description est requise</div>
+          }
+        </div>
+      }
+    </div>
+    
+    <div class="form-group">
+      <label for="price">Prix</label>
+      <input 
+        type="number" 
+        id="price" 
+        formControlName="price" 
+        class="form-control" 
+        [ngClass]="{ 'is-invalid': submitted() && f['price'].errors }"
+      >
+      @if (submitted() && f['price'].errors) {
+        <div class="invalid-feedback">
+          @if (f['price'].errors['required']) {
+            <div>Le prix est requis</div>
+          }
+          @if (f['price'].errors['min']) {
+            <div>Le prix doit être supérieur à 0</div>
+          }
+        </div>
+      }
+    </div>
+    
+    <div class="form-group">
+      <label for="stock">Stock</label>
+      <input 
+        type="number" 
+        id="stock" 
+        formControlName="stock" 
+        class="form-control" 
+        [ngClass]="{ 'is-invalid': submitted() && f['stock'].errors }"
+      >
+      @if (submitted() && f['stock'].errors) {
+        <div class="invalid-feedback">
+          @if (f['stock'].errors['required']) {
+            <div>Le stock est requis</div>
+          }
+          @if (f['stock'].errors['min']) {
+            <div>Le stock doit être supérieur ou égal à 0</div>
+          }
+        </div>
+      }
+    </div>
+    
+    <div class="form-group">
+      <label for="imageUrl">URL de l'image (optionnel)</label>
+      <input 
+        type="text" 
+        id="imageUrl" 
+        formControlName="imageUrl" 
+        class="form-control"
+      >
+    </div>
+    
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary">{{ isEditMode() ? 'Mettre à jour' : 'Ajouter' }}</button>
+      <a routerLink="/products" class="btn btn-secondary">Annuler</a>
+    </div>
+  </form>
+</div>
