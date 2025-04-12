@@ -7,7 +7,7 @@ import { Product } from '../models/product.model';
   providedIn: 'root'
 })
 export class ProductService {
-  private apiUrl = 'https://localhost:7293/api/Product';
+  private apiUrl = 'https://webapid.onrender.com/api/product';
   private http = inject(HttpClient);
 
   getProducts(): Observable<Product[]> {
