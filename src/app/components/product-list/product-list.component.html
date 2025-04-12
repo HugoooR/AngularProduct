@@ -30,17 +30,17 @@
         </tr>
       </thead>
       <tbody>
-        @for (product of products(); track product.id) {
+        @for (product of products(); track product.productID) {
           <tr>
-            <td>{{ product.id }}</td>
+            <td>{{ product.productID }}</td>
             <td>{{ product.name }}</td>
             <td>{{ product.description }}</td>
             <td>{{ product.price | currency:'EUR' }}</td>
-            <td>{{ product.stock }}</td>
+            <td>{{ product.unitsInStock }}</td>
             <td>
               <div class="btn-group">
-                <a [routerLink]="['/products/edit', product.id]" class="btn btn-primary btn-sm">Modifier</a>
-                <button (click)="deleteProduct(product.id!)" class="btn btn-danger btn-sm">Supprimer</button>
+                <a [routerLink]="['/products/edit', product.productID]" class="btn btn-primary btn-sm">Modifier</a>
+                <button (click)="deleteProduct(product.productID!)" class="btn btn-danger btn-sm">Supprimer</button>
               </div>
             </td>
           </tr>
