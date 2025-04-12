@@ -10,7 +10,7 @@ export class ProductService {
   private apiUrl = 'https://webapid.onrender.com/api/product';
   private http = inject(HttpClient);
 
-  private mapProduct(apiProduct: any): Product {
+  private mapFromApi(apiProduct: any): Product {
     return {
       id: apiProduct.productID,
       name: apiProduct.name,
@@ -21,30 +21,47 @@ export class ProductService {
     };
   }
 
+  private mapToApi(product: Product): any {
+    return {
+      productID: product.id,
+      name: product.name,
+      description: product.description,
+      price: product.price,
+      unitsInStock: product.stock,
+      imageUrl: product.imageUrl
+    };
+  }
+
   getProducts(): Observable<Product[]> {
     return this.http.get<any[]>(this.apiUrl).pipe(
-      map(products => products.map(p => this.mapProduct(p)))
+      map(apiProducts => apiProducts.map(p => this.mapFromApi(p)))
     );
   }
 
   getProductById(id: number): Observable<Product> {
     return this.http.get<any>(`${this.apiUrl}/${id}`).pipe(
-      map(p => this.mapProduct(p))
+      map(apiProduct => this.mapFromApi(apiProduct))
     );
   }
 
   searchProducts(term: string): Observable<Product[]> {
     return this.http.get<any[]>(`${this.apiUrl}/search?term=${term}`).pipe(
-      map(products => products.map(p => this.mapProduct(p)))
+      map(apiProducts => apiProducts.map(p => this.mapFromApi(p)))
     );
   }
 
   addProduct(product: Product): Observable<Product> {
-    return this.http.post<Product>(this.apiUrl, product);
+    const payload = this.mapToApi(product);
+    return this.http.post<any>(this.apiUrl, payload).pipe(
+      map(apiProduct => this.mapFromApi(apiProduct))
+    );
   }
 
   updateProduct(product: Product): Observable<Product> {
-    return this.http.put<Product>(`${this.apiUrl}/${product.id}`, product);
+    const payload = this.mapToApi(product);
+    return this.http.put<any>(`${this.apiUrl}/${product.id}`, payload).pipe(
+      map(apiProduct => this.mapFromApi(apiProduct))
+    );
   }
 
   deleteProduct(id: number): Observable<void> {
